@@ -1,6 +1,8 @@
 
 class Strings {
   const Strings._();
+  // B
+  static const String back = "BACK";
 
   // E
   static const String emailHint = "Enter your email address";
@@ -28,10 +30,12 @@ class Strings {
   // P
   static const String password = "Password";
   static const String passwordHint = "Enter password";
+  static const String pokepedia = "PokePedia";
 
   // S
   static const String startAnAccount = "Start an account";
   static const String start = "START";
+  static const String search = "Search for a Pokemon...";
 
 
   // U

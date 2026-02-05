@@ -1,3 +1,4 @@
+import 'package:cadetbank/core/res/values/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:cadetbank/core/res/values/assets.dart';
 import 'package:cadetbank/core/res/values/dimens.dart';
@@ -11,7 +12,7 @@ class SplashLogo extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'PokePedia',
+          Strings.pokepedia,
           style: Theme.of(context).textTheme.displayLarge,
         ),
         const SizedBox(height: Dimens.s20),
