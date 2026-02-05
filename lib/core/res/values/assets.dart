@@ -10,6 +10,8 @@ class Assets {
   // I
   static const String initLogo = '$_webpPath/maya_init_logo.webp';
 
+  static const String initPokeLogo = '$_pngPath/pokelogo.png';
+
   // L
   static const String loginLogo = '$_pngPath/maya_login_logo.png';
 

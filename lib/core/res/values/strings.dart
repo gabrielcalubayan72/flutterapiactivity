@@ -31,6 +31,8 @@ class Strings {
 
   // S
   static const String startAnAccount = "Start an account";
+  static const String start = "START";
+
 
   // U
   static const String username = "Username";
