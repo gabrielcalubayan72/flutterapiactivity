@@ -1,0 +1,42 @@
+name: cadetbank
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.6
+  equatable: ^2.0.5
+  json_annotation: ^4.9.0
+  freezed_annotation: ^2.4.4
+  retrofit: ^4.1.0
+  dio: ^5.5.0+1
+  get_it: ^7.7.0
+  pretty_dio_logger: ^1.4.0
+  lottie: ^3.3.1
+  bloc: ^9.2.0
+  flutter_bloc: ^9.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+  freezed: ^2.5.2
+  retrofit_generator: ^8.1.2
+  build_runner: ^2.4.11
+  json_serializable: ^6.8.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/core/res/assets/json/
+    - lib/core/res/assets/png/
+    - lib/core/res/assets/webp/
