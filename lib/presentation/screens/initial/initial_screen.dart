@@ -3,83 +3,33 @@ import 'package:cadetbank/core/navigation/routes.dart';
 import 'package:cadetbank/core/res/values/assets.dart';
 import 'package:cadetbank/core/res/values/dimens.dart';
 import 'package:cadetbank/core/res/values/strings.dart';
+import 'package:cadetbank/presentation/screens/initial/widgets/splash_logo.dart';
+import 'package:cadetbank/presentation/screens/initial/widgets/splash_start_button.dart';
 import 'package:flutter/material.dart';
 
 class InitialScreen extends StatelessWidget {
   const InitialScreen({super.key});
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => const Scaffold(
     body: SafeArea(
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'PokePedia',
-              style: Theme.of(context).textTheme.displayLarge,
-            ),
-            const SizedBox(height: Dimens.s20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: Dimens.s50),
-              child: Image.asset(Assets.initPokeLogo),
-            ),
-          ],
+          children: [SplashLogo()],
         )
       ),
     ),
     bottomNavigationBar: Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: Dimens.s20,
-          ),
-          child: SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(Routes.registration);
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // Change this color
-              ),
-              child: const Text(
-                Strings.start,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
-                  color: Colors.white
-                ),
-              ),
-            ),
-          ),
+        SplashStartButton(
+          route: Routes.registration,
         ),
 
-        const SizedBox(height: Dimens.s10),
+        SizedBox(height: Dimens.s10),
 
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(
-        //     horizontal: Dimens.s20,
-        //   ),
-        //   child: SizedBox(
-        //     width: double.infinity,
-        //     child: ElevatedButton(
-        //       onPressed: () {
-        //         Navigator.of(context).pushNamed(Routes.login);
-        //       },
-        //       style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-        //         backgroundColor: const WidgetStatePropertyAll(AppColors.grayE1E5E8),
-        //       ),
-        //       child: Text(
-        //         Strings.login,
-        //         style: Theme.of(context).textTheme.labelMedium,
-        //       ),
-        //     ),
-        //   ),
-        // ),
-
-        const SizedBox(height: Dimens.s20),
+        SizedBox(height: Dimens.s20),
       ],
     ),
   );
