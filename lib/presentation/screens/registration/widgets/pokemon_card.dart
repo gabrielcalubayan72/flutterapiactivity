@@ -7,11 +7,11 @@ class PokemonCard extends StatelessWidget {
   final List<String>? types;
 
   const PokemonCard({
-    Key? key,
+    super.key,
     this.spriteUrl,
     this.pokemonName,
     this.types,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

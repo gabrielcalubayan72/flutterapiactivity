@@ -5,10 +5,10 @@ class RegisterTextField extends StatelessWidget {
   final String hintText;
 
   const RegisterTextField({
-    Key? key,
+    super.key,
     this.keyboardType = TextInputType.name,
     this.hintText = 'Enter name',
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

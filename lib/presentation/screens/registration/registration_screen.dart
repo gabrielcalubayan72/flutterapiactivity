@@ -20,7 +20,9 @@ class RegistrationScreen extends StatelessWidget {
               children: [
                 RichText(
                   text: TextSpan(
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(color: Colors.black),
+                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                      color: Colors.black,
+                    ),
                     children: <TextSpan>[
                       TextSpan(
                         text: Strings.pokepedia,
@@ -32,10 +34,46 @@ class RegistrationScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: Dimens.s20),
-                const RegisterTextField(
-                  keyboardType: TextInputType.name,
-                  hintText: Strings.search,
+                
+                // --- ALIGNED SEARCH SECTION WITH GAP ---
+                IntrinsicHeight(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center, // Matches button height to TextField
+                    children: [
+                      const Expanded(
+                        child: RegisterTextField(
+                          keyboardType: TextInputType.name,
+                          hintText: Strings.search,
+                        ),
+                      ),
+                      const SizedBox(width: Dimens.s10), // Your desired gap
+                      AspectRatio(
+                        aspectRatio: 1, // Ensures the button is a square matching the height
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                            borderRadius: BorderRadius.circular(Dimens.s12),
+                            border: Border.all(color: Colors.grey.shade300),
+                          ),
+                          child: IconButton(
+                            constraints: const BoxConstraints(), // Removes default 48px min-size
+                            padding: EdgeInsets.zero,
+                            onPressed: () {
+                              // Search Logic
+                            },
+                            icon: const Icon(
+                              Icons.search,
+                              size: 20, 
+                              color: Colors.black87,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                // --- END SEARCH SECTION ---
+
                 const SizedBox(height: Dimens.s20),
                 const PokemonCard(
                   pokemonName: 'Bulbasaur',

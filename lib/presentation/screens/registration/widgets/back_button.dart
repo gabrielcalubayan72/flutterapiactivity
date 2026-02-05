@@ -7,9 +7,9 @@ class BackButtonSearch extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const BackButtonSearch({
-    Key? key,
+    super.key,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +20,10 @@ class BackButtonSearch extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: onPressed ?? () {
-            Navigator.of(context).pop();
-          },
+          onPressed: onPressed ??
+              () {
+                Navigator.of(context).pop();
+              },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black,
           ),
@@ -30,7 +31,7 @@ class BackButtonSearch extends StatelessWidget {
             Strings.back,
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 30,
+              fontSize: 20,
               color: Colors.white,
             ),
           ),
