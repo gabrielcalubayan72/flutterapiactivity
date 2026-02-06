@@ -21,7 +21,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   // 2. State Variables (Initial Data)
   String name = 'Bulbasaur';
   List<String> types = ['Grass', 'Poison'];
-  String spriteUrl = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png';
+  String spriteUrl =
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png';
   bool isLoading = false;
 
   // 3. The API Function
@@ -33,7 +34,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     try {
       // PokeAPI is case-sensitive (needs lowercase)
       final cleanQuery = query.toLowerCase().trim();
-      final response = await _dio.get('https://pokeapi.co/api/v2/pokemon/$cleanQuery');
+      final response =
+          await _dio.get('https://pokeapi.co/api/v2/pokemon/$cleanQuery');
 
       if (response.statusCode == 200) {
         final data = response.data;
@@ -48,10 +50,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       }
     } on DioException catch (e) {
       setState(() => isLoading = false);
-      String errorMsg = e.response?.statusCode == 404 
-          ? "Pokemon not found!" 
+      String errorMsg = e.response?.statusCode == 404
+          ? "Pokemon not found!"
           : "Check your internet connection";
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(errorMsg), backgroundColor: Colors.redAccent),
       );
@@ -66,81 +68,82 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: SafeArea(
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Dimens.s20),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    style: Theme.of(context).textTheme.headlineLarge?.copyWith(
-                      color: Colors.black,
-                      // Orbitron will apply from your global TextTheme
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Dimens.s20),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      style:
+                          Theme.of(context).textTheme.headlineLarge?.copyWith(
+                                color: Colors.black,
+                                // Orbitron will apply from your global TextTheme
+                              ),
+                      children: [
+                        TextSpan(text: Strings.pokepedia),
+                      ],
                     ),
-                    children: [
-                      TextSpan(text: Strings.pokepedia),
-                    ],
                   ),
-                ),
-                const SizedBox(height: Dimens.s20),
-                
-                // --- SEARCH SECTION ---
-                IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        child: RegisterTextField(
-                          controller: _searchController, // Now this works!
-                          keyboardType: TextInputType.name,
-                          hintText: Strings.search,
-                        ),
-                      ),
-                      const SizedBox(width: Dimens.s10),
-                      AspectRatio(
-                        aspectRatio: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey[100],
-                            borderRadius: BorderRadius.circular(Dimens.s12),
-                            border: Border.all(color: Colors.grey.shade300),
-                          ),
-                          child: IconButton(
-                            constraints: const BoxConstraints(),
-                            padding: EdgeInsets.zero,
-                            onPressed: () => fetchPokemon(_searchController.text),
-                            icon: isLoading 
-                              ? const Padding(
-                                  padding: EdgeInsets.all(12.0),
-                                  child: CircularProgressIndicator(strokeWidth: 2),
-                                )
-                              : const Icon(Icons.search, size: 20, color: Colors.black87),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: Dimens.s20),
+                  const SizedBox(height: Dimens.s20),
 
-                // 4. THE CARD (Updates when API returns data)
-                PokemonCard(
-                  pokemonName: name,
-                  types: types,
-                  spriteUrl: spriteUrl,
-                ),
-              ],
+                  // --- SEARCH SECTION ---
+                  IntrinsicHeight(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: RegisterTextField(
+                            controller: _searchController, // Now this works!
+                            keyboardType: TextInputType.name,
+                            hintText: Strings.search,
+                          ),
+                        ),
+                        const SizedBox(width: Dimens.s10),
+                        AspectRatio(
+                          aspectRatio: 1,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[100],
+                              borderRadius: BorderRadius.circular(Dimens.s12),
+                              border: Border.all(color: Colors.grey.shade300),
+                            ),
+                            child: IconButton(
+                              constraints: const BoxConstraints(),
+                              padding: EdgeInsets.zero,
+                              onPressed: () =>
+                                  fetchPokemon(_searchController.text),
+                              icon: isLoading
+                                  ? const Padding(
+                                      padding: EdgeInsets.all(12.0),
+                                      child: CircularProgressIndicator(
+                                          strokeWidth: 2),
+                                    )
+                                  : const Icon(Icons.search,
+                                      size: 20, color: Colors.black87),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: Dimens.s20),
+
+                  // 4. THE CARD (Updates when API returns data)
+                  PokemonCard(
+                    pokemonName: name,
+                    types: types,
+                    spriteUrl: spriteUrl,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
-    ),
-    bottomNavigationBar: const Padding(
-      padding: EdgeInsets.all(Dimens.s20),
-      child: BackButtonSearch()
-    )
-  );
+      bottomNavigationBar: const Padding(
+          padding: EdgeInsets.all(Dimens.s20), child: BackButtonSearch()));
 }
