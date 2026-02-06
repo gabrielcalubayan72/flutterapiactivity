@@ -4,7 +4,7 @@ import 'package:cadetbank/core/res/values/assets.dart';
 import 'package:cadetbank/core/res/values/dimens.dart';
 
 class SplashLogo extends StatelessWidget {
-  const SplashLogo({Key? key}) : super(key: key);
+  const SplashLogo({super.key});
 
   @override
   Widget build(BuildContext context) {
