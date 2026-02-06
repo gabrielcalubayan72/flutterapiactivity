@@ -27,8 +27,6 @@ class AppRouter {
     switch (settings.name) {
       case Routes.init:
         return AppTransition.none(child: const InitialScreen());
-      case Routes.login:
-        return AppTransition.slide(child: buildLoginScreen());
       case Routes.registration:
         return AppTransition.slide(child: buildRegistrationScreen());
       case Routes.home:
@@ -37,15 +35,6 @@ class AppRouter {
         return AppTransition.none(child: const SizedBox.shrink());
     }
   }
-
-  static Widget buildLoginScreen() => MultiBlocProvider(
-    providers: [
-      BlocProvider(
-        create: (_) => LoginFormCubit(),
-      ),
-    ],
-    child: const LoginScreen(),
-  );
 
   static Widget buildRegistrationScreen() {
     return FutureBuilder<Dio>(
