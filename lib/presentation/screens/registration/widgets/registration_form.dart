@@ -1,5 +1,4 @@
 import 'package:cadetbank/core/res/values/strings.dart';
-import 'package:cadetbank/presentation/screens/registration/widgets/middleNameToggle.dart';
 import 'package:flutter/material.dart';
 import 'register_text_field.dart';
 

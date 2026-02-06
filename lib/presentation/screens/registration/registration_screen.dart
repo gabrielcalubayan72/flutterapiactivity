@@ -19,10 +19,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final Dio _dio = Dio();
 
   // 2. State Variables (Initial Data)
-  String name = 'Bulbasaur';
-  List<String> types = ['Grass', 'Poison'];
+  String name = 'Search for a Pokemon...';
+  List<String> types = [];
   String spriteUrl =
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png';
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png';
   bool isLoading = false;
 
   // 3. The API Function
