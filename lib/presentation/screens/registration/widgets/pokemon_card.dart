@@ -17,7 +17,7 @@ class PokemonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // Pokemon Sprite Box
+        // pokemon sprite box
         Container(
           width: double.infinity,
           height: 250,
@@ -31,14 +31,14 @@ class PokemonCard extends StatelessWidget {
         ),
         const SizedBox(height: Dimens.s20),
 
-        // Pokemon Name
+        // pokemon name
         Text(
           pokemonName ?? 'Unknown',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         const SizedBox(height: Dimens.s16),
 
-        // Pokemon Types
+        // pokemon types
         if (types != null && types!.isNotEmpty)
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

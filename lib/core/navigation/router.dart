@@ -1,14 +1,28 @@
 
 import 'package:cadetbank/core/navigation/routes.dart';
+import 'package:cadetbank/core/utils/dio_factory.dart';
+import 'package:cadetbank/data/data_source/remote/pokemon_remote_data_source_impl.dart';
+import 'package:cadetbank/data/repositories/pokemon_repository_impl.dart';
+import 'package:cadetbank/presentation/cubits/pokemon_cubit.dart';
 import 'package:cadetbank/presentation/screens/home/home_screen.dart';
 import 'package:cadetbank/presentation/screens/initial/initial_screen.dart';
 import 'package:cadetbank/presentation/screens/login/cubits/login_form/login_form_cubit.dart';
 import 'package:cadetbank/presentation/screens/login/login_screen.dart';
 import 'package:cadetbank/presentation/screens/registration/registration_screen.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
+  static const _dioFactory = DioFactory();
+
+  static Dio? _dio;
+  
+  static Future<Dio> getDio() async {
+    _dio ??= await _dioFactory.createDio();
+    return _dio!;
+  }
+
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case Routes.init:
@@ -16,9 +30,8 @@ class AppRouter {
       case Routes.login:
         return AppTransition.slide(child: buildLoginScreen());
       case Routes.registration:
-        return AppTransition.slide(child: const RegistrationScreen());
+        return AppTransition.slide(child: buildRegistrationScreen());
       case Routes.home:
-        // Assuming HomeScreen is defined elsewhere
         return AppTransition.slide(child: const HomeScreen());
       default:
         return AppTransition.none(child: const SizedBox.shrink());
@@ -33,6 +46,26 @@ class AppRouter {
     ],
     child: const LoginScreen(),
   );
+
+  static Widget buildRegistrationScreen() {
+    return FutureBuilder<Dio>(
+      future: getDio(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        }
+
+        final dio = snapshot.data!;
+        final dataSource = PokemonRemoteDataSourceImpl(dio);
+        final repository = PokemonRepositoryImpl(dataSource);
+
+        return BlocProvider(
+          create: (_) => PokemonCubit(repository)..loadInitialPokemon(),
+          child: const RegistrationScreen(),
+        );
+      },
+    );
+  }
 }
 
 
