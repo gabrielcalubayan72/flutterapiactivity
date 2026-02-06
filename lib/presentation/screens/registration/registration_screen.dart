@@ -1,15 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:cadetbank/core/res/values/dimens.dart';
 import 'package:cadetbank/presentation/cubits/pokemon_cubit.dart';
 import 'package:cadetbank/presentation/cubits/pokemon_state.dart';
 import 'package:cadetbank/presentation/screens/registration/widgets/pokemon_card.dart';
 import 'package:cadetbank/presentation/screens/registration/widgets/search_text_field.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cadetbank/presentation/screens/registration/widgets/register_text_field.dart';
 
-class RegistrationScreen extends StatefulWidget {
+class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({super.key});
 
   @override
@@ -79,4 +76,4 @@ class RegistrationScreen extends StatefulWidget {
       ),
     );
   }
-}
+} 
