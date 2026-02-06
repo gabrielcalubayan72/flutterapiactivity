@@ -6,10 +6,10 @@ class MiddleNameToggle extends StatefulWidget {
   final ValueChanged<bool>? onChanged;
 
   const MiddleNameToggle({
-    Key? key,
+    super.key,
     this.value = false,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<MiddleNameToggle> createState() => _MiddleNameToggleState();

@@ -8,10 +8,10 @@ class SplashStartButton extends StatelessWidget {
   final String? route;
 
   const SplashStartButton({
-    Key? key,
+    super.key,
     this.onPressed,
     this.route = Routes.registration,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
