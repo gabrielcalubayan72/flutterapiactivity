@@ -3,6 +3,7 @@ import 'package:cadetbank/core/utils/result/result.dart';
 import 'package:cadetbank/data/data_source/pokemon_data_source.dart';
 import 'package:cadetbank/data/models/pokemon/pokemon.dart';
 import 'package:cadetbank/domain/repositories/pokemon_repository.dart';
+import 'package:dio/dio.dart';
 
 class PokemonRepositoryImpl implements PokemonRepository {
   final PokemonDataSource dataSource;
@@ -14,16 +15,12 @@ class PokemonRepositoryImpl implements PokemonRepository {
       final response = await dataSource.getPokemonList(limit: limit, offset: offset);
       final List results = response.data['results'];
 
-      // 2. Map each item to a Detail fetch request
-      // We call our own 'getPokemonDetails' for every name in the list
       final pokemonFutures = results.map((item) {
         return getPokemonDetails(item['name']);
       }).toList();
 
-      // 3. Run all requests simultaneously
       final List<Result<Pokemon>> detailResults = await Future.wait(pokemonFutures);
 
-      // 4. Filter only the successful ones and extract the data
       final List<Pokemon> pokemonList = detailResults
           .whereType<Success<Pokemon>>()
           .map((s) => s.result)
@@ -43,7 +40,7 @@ class PokemonRepositoryImpl implements PokemonRepository {
       
       return Result.success(pokemon);
     } catch (_) {
-      return Result.failure(const DefaultError());
+      return Failure(const DefaultError());
     }
   }
 }
