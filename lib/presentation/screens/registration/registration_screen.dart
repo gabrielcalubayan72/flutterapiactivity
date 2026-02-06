@@ -63,7 +63,7 @@ class RegistrationScreen extends StatelessWidget {
                       );
                     }
 
-                    // Initial state (before search/load)
+
                     return const Center(
                       child: Text("Welcome! Search for a Pokémon to begin."),
                     );
