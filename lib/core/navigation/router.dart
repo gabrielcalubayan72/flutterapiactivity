@@ -6,8 +6,6 @@ import 'package:cadetbank/data/repositories/pokemon_repository_impl.dart';
 import 'package:cadetbank/presentation/cubits/pokemon_cubit.dart';
 import 'package:cadetbank/presentation/screens/home/home_screen.dart';
 import 'package:cadetbank/presentation/screens/initial/initial_screen.dart';
-import 'package:cadetbank/presentation/screens/login/cubits/login_form/login_form_cubit.dart';
-import 'package:cadetbank/presentation/screens/login/login_screen.dart';
 import 'package:cadetbank/presentation/screens/registration/registration_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -49,7 +47,7 @@ class AppRouter {
         final repository = PokemonRepositoryImpl(dataSource);
 
         return BlocProvider(
-          create: (_) => PokemonCubit(repository)..loadInitialPokemon(),
+          create: (_) => PokemonCubit(repository),
           child: const RegistrationScreen(),
         );
       },
