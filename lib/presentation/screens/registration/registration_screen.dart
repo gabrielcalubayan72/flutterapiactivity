@@ -1,14 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:cadetbank/core/res/values/dimens.dart';
-import 'package:cadetbank/presentation/cubits/pokemon_cubit.dart';
-import 'package:cadetbank/presentation/cubits/pokemon_state.dart';
+import 'package:cadetbank/core/res/values/strings.dart';
+import 'package:cadetbank/presentation/screens/registration/widgets/back_button.dart';
 import 'package:cadetbank/presentation/screens/registration/widgets/pokemon_card.dart';
 import 'package:cadetbank/presentation/screens/registration/widgets/register_text_field.dart';
 import 'package:cadetbank/presentation/screens/registration/widgets/pokemon_names.dart';
-import 'package:cadetbank/presentation/screens/registration/widgets/search_text_field.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
 
   @override
@@ -69,7 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     }
   }
 
-    void _showOverlay() {
+  void _showOverlay() {
     if (_overlayEntry != null) {
       _overlayEntry!.markNeedsBuild();
       return;
@@ -134,23 +133,30 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       // PokeAPI is case-sensitive (needs lowercase)
       final cleanQuery = query.toLowerCase().trim();
       final response =
-          await _dio.get('https://pokeapi.co/api/v2/pokemon/$cleanQuery');
+      await _dio.get('https://pokeapi.co/api/v2/pokemon/$cleanQuery');
 
-              Expanded(
-                child: BlocBuilder<PokemonCubit, PokemonState>(
-                  builder: (context, state) {
-                    if (state is PokemonLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
+      if (response.statusCode == 200) {
+        final data = response.data;
+        setState(() {
+          name = data['name'].toString().toUpperCase();
+          spriteUrl = data['sprites']['front_default'] ?? '';
+          types = (data['types'] as List)
+              .map((t) => t['type']['name'].toString())
+              .toList();
+          isLoading = false;
+        });
+      }
+    } on DioException catch (e) {
+      setState(() => isLoading = false);
+      String errorMsg = e.response?.statusCode == 404
+          ? "Pokemon not found!"
+          : "Check your internet connection";
 
-                    if (state is PokemonError) {
-                      return Center(
-                        child: Text(
-                          state.message,
-                          style: const TextStyle(color: Colors.red),
-                        ),
-                      );
-                    }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(errorMsg), backgroundColor: Colors.redAccent),
+      );
+    }
+  }
 
   @override
   void dispose() {
@@ -160,21 +166,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
     super.dispose();
   }
 
-                      return ListView.separated(
-                        itemCount: state.pokemonList.length,
-                        padding: const EdgeInsets.only(bottom: Dimens.s20),
-                        separatorBuilder: (_, __) => const SizedBox(height: 40),
-                        itemBuilder: (context, index) {
-                          final pokemon = state.pokemonList[index];
-                          
-                          return PokemonCard(
-                            pokemonName: pokemon.name,
-                            spriteUrl: pokemon.spriteUrl,
-                            types: pokemon.types,
-                          );
-                        },
-                      );
-                    }
+  @override
+  Widget build(BuildContext context) => Scaffold(
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: Dimens.s20),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      style:
+                      Theme.of(context).textTheme.headlineLarge?.copyWith(
+                        color: Colors.black,
+                        // Orbitron will apply from your global TextTheme
+                      ),
+                      children: [
+                        TextSpan(text: Strings.pokepedia),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: Dimens.s20),
 
                   // --- SEARCH SECTION ---
                   IntrinsicHeight(
@@ -225,12 +239,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               },
                               icon: isLoading
                                   ? const Padding(
-                                      padding: EdgeInsets.all(12.0),
-                                      child: CircularProgressIndicator(
-                                          strokeWidth: 2),
-                                    )
+                                padding: EdgeInsets.all(12.0),
+                                child: CircularProgressIndicator(
+                                    strokeWidth: 2),
+                              )
                                   : const Icon(Icons.search,
-                                      size: 20, color: Colors.black87),
+                                  size: 20, color: Colors.black87),
                             ),
                           ),
                         ),
@@ -289,10 +303,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),
-    );
-  }
-} 
+      bottomNavigationBar: const Padding(
+          padding: EdgeInsets.all(Dimens.s20), child: BackButtonSearch()));
+}
+
