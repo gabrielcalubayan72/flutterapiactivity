@@ -72,16 +72,6 @@ class PokemonCard extends StatelessWidget {
 
   Color _getTypeColor(String type) {
     switch (type.toLowerCase()) {
-      // case 'grass':
-      //   return const Color(0xFF78C850);
-      // case 'poison':
-      //   return const Color(0xFFA040A0);
-      // case 'fire':
-      //   return const Color(0xFFF08030);
-      // case 'water':
-      //   return const Color(0xFF6890F0);
-      // default:
-      //   return Colors.grey;
       case 'normal':
         return const Color(0xFFA8A878);
       case 'fire':
