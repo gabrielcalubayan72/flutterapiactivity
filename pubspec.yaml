@@ -38,6 +38,4 @@ flutter:
   uses-material-design: true
 
   assets:
-    - lib/core/res/assets/json/
     - lib/core/res/assets/png/
-    - lib/core/res/assets/webp/

@@ -5,11 +5,11 @@ import 'package:cadetbank/core/res/themes/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const CadetBankApp());
+  runApp(const PokePediaApp());
 }
 
-class CadetBankApp extends StatelessWidget {
-  const CadetBankApp({super.key});
+class PokePediaApp extends StatelessWidget {
+  const PokePediaApp({super.key});
 
   @override
   Widget build(BuildContext context) => MaterialApp(

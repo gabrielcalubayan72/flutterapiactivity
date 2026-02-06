@@ -4,7 +4,6 @@ import 'package:cadetbank/core/utils/dio_factory.dart';
 import 'package:cadetbank/data/data_source/remote/pokemon_remote_data_source_impl.dart';
 import 'package:cadetbank/data/repositories/pokemon_repository_impl.dart';
 import 'package:cadetbank/presentation/cubits/pokemon_cubit.dart';
-import 'package:cadetbank/presentation/screens/home/home_screen.dart';
 import 'package:cadetbank/presentation/screens/initial/initial_screen.dart';
 import 'package:cadetbank/presentation/screens/registration/registration_screen.dart';
 import 'package:dio/dio.dart';
@@ -27,8 +26,6 @@ class AppRouter {
         return AppTransition.none(child: const InitialScreen());
       case Routes.registration:
         return AppTransition.slide(child: buildRegistrationScreen());
-      case Routes.home:
-        return AppTransition.slide(child: const HomeScreen());
       default:
         return AppTransition.none(child: const SizedBox.shrink());
     }
